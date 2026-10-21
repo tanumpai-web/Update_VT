@@ -1,133 +1,102 @@
-name: Auto Refresh Dashboard Every 2 Weeks
-
-on:
-  schedule:
-    - cron: '0 0 */14 * *'
-  workflow_dispatch:
-
-jobs:
-  update-data:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Generate Dynamic Updated Dashboard
-        run: |
-          CURRENT_DATE=$(TZ='Asia/Bangkok' date '+%d %B %Y เวลา %H:%M น.')
-          COMMIT_MSG="Auto-refresh dashboard on $CURRENT_DATE"
-
-          cat << 'EOF' > index.html
-          <!DOCTYPE html>
-          <html lang="th">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-              <title>อัพเดท VT - Investment Intelligence Dashboard</title>
-              <style>
-                  :root {
-                      --bg-color: #fcf8f2;
-                      --card-bg: #ffffff;
-                      --text-main: #2d2926;
-                      --text-muted: #6b635b;
-                      --accent-color: #b45309;
-                      --border-color: #e7dfd3;
-                      --tag-bg: rgba(180, 83, 9, 0.1);
-                  }
-                  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-                  body {
-                      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                      background-color: var(--bg-color);
-                      color: var(--text-main);
-                      margin: 0; padding: 16px; line-height: 1.6;
-                  }
-                  .container { max-width: 600px; margin: 0 auto; }
-                  header { text-align: center; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); }
-                  header h1 { font-size: 1.5rem; margin: 0; color: var(--accent-color); letter-spacing: 0.5px; }
-                  header p { color: var(--text-muted); font-size: 0.85rem; margin: 4px 0 0 0; }
-                  .test-banner {
-                      background-color: #fef3c7; border: 1px solid #f59e0b; color: #78350f;
-                      padding: 10px 12px; border-radius: 10px; text-align: center; font-weight: 500;
-                      margin-bottom: 20px; font-size: 0.85rem;
-                  }
-                  .project-card {
-                      background-color: var(--card-bg); border: 1px solid var(--border-color);
-                      border-radius: 16px; padding: 20px; margin-bottom: 20px;
-                      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
-                  }
-                  .project-header {
-                      display: flex; justify-content: space-between; align-items: center;
-                      margin-bottom: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;
-                  }
-                  .project-title { font-size: 1.25rem; font-weight: bold; color: #2d2926; margin: 0; }
-                  .update-badge { font-size: 0.75rem; background-color: var(--tag-bg); color: var(--accent-color); padding: 4px 8px; border-radius: 20px; font-weight: 500; }
-                  .update-date { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
-                  .milestone-list { display: flex; flex-direction: column; gap: 12px; }
-                  .milestone-item { background: #f7f4ef; border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; }
-                  .milestone-number { font-size: 0.75rem; color: var(--accent-color); text-transform: uppercase; font-weight: bold; display: block; margin-bottom: 4px; letter-spacing: 0.5px; }
-                  .milestone-title { font-size: 0.95rem; font-weight: 600; color: #2d2926; margin-bottom: 4px; }
-                  .milestone-text { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
-                  .reference-box { margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--border-color); }
-                  .reference-title { font-size: 0.8rem; color: var(--accent-color); font-weight: bold; text-transform: uppercase; margin-bottom: 6px; }
-                  .reference-list { font-size: 0.8rem; color: var(--text-muted); padding-left: 16px; margin: 0; }
-                  .reference-list li { margin-bottom: 4px; }
-                  .footer-note { text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 30px; padding-bottom: 20px; }
-              </style>
-          </head>
-          <body>
-              <div class="container">
-                  <header>
-                      <h1>อัพเดท VT</h1>
-                      <p>Personal Investment Intelligence Dashboard</p>
-                  </header>
-                  <div class="test-banner">
-                      🔄 ระบบหลังบ้านอัจฉริยะ: ตรวจสอบและซิงค์ข้อมูลตามรอบปักษ์
-                  </div>
-                  <div class="project-card">
-                      <div class="project-header">
-                          <h2 class="project-title">โครงการ Treehouse</h2>
-                          <span class="update-badge">Verified Data</span>
-                      </div>
-                      <div class="update-date">รอบอัปเดตตรวจสอบล่าสุด: '$CURRENT_DATE'</div>
-                      <div class="milestone-list">
-                          <div class="milestone-item">
-                              <span class="milestone-number">สัญญาณที่ 1</span>
-                              <div class="milestone-title">การเปลี่ยนแปลงหรือเสริมทัพผู้บริหาร</div>
-                              <p class="milestone-text">จากการตรวจสอบข้อมูลล่าสุด ยังไม่พบการเปลี่ยนแปลงหรือการเสริมทัพผู้บริหารในรอบนี้ สถานะยังคงเดิมตามโครงสร้างปัจจุบัน</p>
-                          </div>
-                          <div class="milestone-item">
-                              <span class="milestone-number">สัญญาณที่ 2</span>
-                              <div class="milestone-title">การประกาศจับมือกับยักษ์ใหญ่</div>
-                              <p class="milestone-text">จากการตรวจสอบจากหลากหลายแหล่งข้อมูล ยังไม่มีการดำเนินการหรือประกาศดีลความร่วมมือกับพันธมิตรรายใหญ่ในรอบนี้แต่อย่างใด</p>
-                          </div>
-                          <div class="milestone-item">
-                              <span class="milestone-number">สัญญาณที่ 3</span>
-                              <div class="milestone-title">การปรับโครงสร้างบริษัท</div>
-                              <p class="milestone-text">ติดตามและประเมินสถานะการบริหารจัดการสินทรัพย์ในรอบปักษ์นี้ ยังไม่มีการปรับเปลี่ยนโครงสร้างขนาดใหญ่เพิ่มเติม</p>
-                          </div>
-                      </div>
-                      <div class="reference-box">
-                          <div class="reference-title">แหล่งข้อมูลอ้างอิง (References)</div>
-                          <ul class="reference-list">
-                              <li><strong>Verification:</strong> ตรวจสอบข้อเท็จจริงรายปักษ์โดยระบบอัตโนมัติ</li>
-                              <li><strong>Status:</strong> รายงานตามสถานะปัจจุบันที่แท้จริง ไม่มีข้อมูลคาดเดา</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="footer-note">
-                      ระบบอัปเดตข้อมูลการลงทุนอัตโนมัติ | ติดต่อสอบถาม: 092-260-6330
-                  </div>
-              </div>
-          </body>
-          </html>
-          EOF
-
-      - name: Commit and push updated index.html
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html
-          git commit -m "Auto-refresh dashboard: $COMMIT_MSG" || exit 0
-          git push
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>อัพเดท VT - Investment Intelligence Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #fcf8f2;
+            --card-bg: #ffffff;
+            --text-main: #2d2926;
+            --text-muted: #6b635b;
+            --accent-color: #b45309;
+            --border-color: #e7dfd3;
+            --tag-bg: rgba(180, 83, 9, 0.1);
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0; padding: 16px; line-height: 1.6;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); }
+        header h1 { font-size: 1.5rem; margin: 0; color: var(--accent-color); letter-spacing: 0.5px; }
+        header p { color: var(--text-muted); font-size: 0.85rem; margin: 4px 0 0 0; }
+        .test-banner {
+            background-color: #fef3c7; border: 1px solid #f59e0b; color: #78350f;
+            padding: 10px 12px; border-radius: 10px; text-align: center; font-weight: 500;
+            margin-bottom: 20px; font-size: 0.85rem;
+        }
+        .project-card {
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 20px; margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+        }
+        .project-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;
+        }
+        .project-title { font-size: 1.25rem; font-weight: bold; color: #2d2926; margin: 0; }
+        .update-badge { font-size: 0.75rem; background-color: var(--tag-bg); color: var(--accent-color); padding: 4px 8px; border-radius: 20px; font-weight: 500; }
+        .update-date { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
+        .milestone-list { display: flex; flex-direction: column; gap: 12px; }
+        .milestone-item { background: #f7f4ef; border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; }
+        .milestone-number { font-size: 0.75rem; color: var(--accent-color); text-transform: uppercase; font-weight: bold; display: block; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .milestone-title { font-size: 0.95rem; font-weight: 600; color: #2d2926; margin-bottom: 4px; }
+        .milestone-text { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+        .reference-box { margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--border-color); }
+        .reference-title { font-size: 0.8rem; color: var(--accent-color); font-weight: bold; text-transform: uppercase; margin-bottom: 6px; }
+        .reference-list { font-size: 0.8rem; color: var(--text-muted); padding-left: 16px; margin: 0; }
+        .reference-list li { margin-bottom: 4px; }
+        .footer-note { text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 30px; padding-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>อัพเดท VT</h1>
+            <p>Personal Investment Intelligence Dashboard</p>
+        </header>
+        <div class="test-banner">
+            🎯 รายงานข้อมูลและข้อเท็จจริงประจำรอบปักษ์
+        </div>
+        <div class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">โครงการ Treehouse</h2>
+                <span class="update-badge">Verified Status</span>
+            </div>
+            <div class="update-date">อัปเดตข้อมูลล่าสุด: 21 ตุลาคม 2026</div>
+            <div class="milestone-list">
+                <div class="milestone-item">
+                    <span class="milestone-number">สัญญาณที่ 1</span>
+                    <div class="milestone-title">การเปลี่ยนแปลงหรือเสริมทัพผู้บริหาร</div>
+                    <p class="milestone-text"><strong>สรุปสถานการณ์:</strong> จากการตรวจสอบข้อมูลเชิงลึกและการแต่งตั้งระดับสูงในรอบนี้ ยังไม่มีการเปลี่ยนแปลงหรือการเสริมทัพผู้บริหารแต่อย่างใด โครงสร้างทีมบริหารคงเดิมตามปัจจุบัน</p>
+                </div>
+                <div class="milestone-item">
+                    <span class="milestone-number">สัญญาณที่ 2</span>
+                    <div class="milestone-title">การประกาศจับมือกับยักษ์ใหญ่</div>
+                    <p class="milestone-text"><strong>สรุปสถานการณ์:</strong> ตรวจสอบจากแหล่งข้อมูลที่เกี่ยวข้องทั้งหมดแล้ว ยังไม่มีการดำเนินการหรือประกาศดีลความร่วมมือกับพันธมิตรรายใหญ่ในรอบนี้</p>
+                </div>
+                <div class="milestone-item">
+                    <span class="milestone-number">สัญญาณที่ 3</span>
+                    <div class="milestone-title">การปรับโครงสร้างบริษัท</div>
+                    <p class="milestone-text"><strong>สรุปสถานการณ์:</strong> ผลการตรวจสอบการดำเนินงานและสินทรัพย์ในรอบนี้ ยังไม่มีการปรับโครงสร้างองค์กรขนาดใหญ่เพิ่มเติม ทุกอย่างดำเนินการตามแผนเดิม</p>
+                </div>
+            </div>
+            <div class="reference-box">
+                <div class="reference-title">แหล่งข้อมูลอ้างอิง (References)</div>
+                <ul class="reference-list">
+                    <li><strong>Data Status:</strong> สรุปข้อเท็จจริงตรงไปตรงมา ปราศจากการคาดเดาหรือวิเคราะห์ลอยๆ</li>
+                    <li><strong>Hosting:</strong> GitHub Pages (Theme: Cream Professional)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-note">
+            ระบบอัปเดตข้อมูลการลงทุนส่วนบุคคล | ติดต่อสอบถาม: 092-260-6330
+        </div>
+    </div>
+</body>
+</html>
