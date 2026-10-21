@@ -6,13 +6,13 @@
     <title>อัพเดท VT - Personal Investment Dashboard</title>
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #131b2e;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --accent-color: #38bdf8;
-            --border-color: #1e293b;
-            --tag-bg: rgba(56, 189, 248, 0.1);
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent-color: #0284c7;
+            --border-color: #cbd5e1;
+            --tag-bg: rgba(2, 132, 199, 0.1);
         }
         * {
             box-sizing: border-box;
@@ -47,13 +47,24 @@
             font-size: 0.85rem;
             margin: 4px 0 0 0;
         }
+        .test-banner {
+            background-color: #fef08a;
+            border: 1px solid #facc15;
+            color: #713f12;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
         .project-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         .project-header {
             display: flex;
@@ -66,7 +77,7 @@
         .project-title {
             font-size: 1.25rem;
             font-weight: bold;
-            color: #ffffff;
+            color: #0f172a;
             margin: 0;
         }
         .update-badge {
@@ -88,7 +99,7 @@
             gap: 12px;
         }
         .milestone-item {
-            background: rgba(255, 255, 255, 0.02);
+            background: #f1f5f9;
             border: 1px solid var(--border-color);
             border-radius: 10px;
             padding: 14px;
@@ -105,7 +116,7 @@
         .milestone-title {
             font-size: 0.95rem;
             font-weight: 600;
-            color: #e2e8f0;
+            color: #1e293b;
             margin-bottom: 4px;
         }
         .milestone-text {
@@ -151,30 +162,30 @@
             <p>Personal Investment Intelligence Dashboard</p>
         </header>
 
-        <!-- โครงการที่ 1: Treehouse (Dynamic Container) -->
+        <div class="test-banner">
+            ✨ โหมดทดสอบ: เปลี่ยนเป็นธีมสีขาว (Light Mode) สำเร็จแล้ว!
+        </div>
+
         <div class="project-card">
             <div class="project-header">
                 <h2 class="project-title" id="proj-title">โครงการ Treehouse</h2>
-                <span class="update-badge" id="proj-badge">Active</span>
+                <span class="update-badge" id="proj-badge">Test Version</span>
             </div>
             <div class="update-date" id="proj-date">กำลังโหลดข้อมูลรอบล่าสุด...</div>
             
             <div class="milestone-list">
-                <!-- สัญญาณที่ 1 -->
                 <div class="milestone-item">
                     <span class="milestone-number">สัญญาณที่ 1</span>
                     <div class="milestone-title">การเปลี่ยนตัวหรือเสริมทัพผู้บริหาร</div>
                     <p class="milestone-text" id="sig-1">กำลังโหลดข้อมูล...</p>
                 </div>
 
-                <!-- สัญญาณที่ 2 -->
                 <div class="milestone-item">
                     <span class="milestone-number">สัญญาณที่ 2</span>
                     <div class="milestone-title">การประกาศจับมือกับยักษ์ใหญ่</div>
                     <p class="milestone-text" id="sig-2">กำลังโหลดข้อมูล...</p>
                 </div>
 
-                <!-- สัญญาณที่ 3 -->
                 <div class="milestone-item">
                     <span class="milestone-number">สัญญาณที่ 3</span>
                     <div class="milestone-title">การปรับโครงสร้างบริษัท</div>
@@ -191,26 +202,22 @@
         </div>
 
         <div class="footer-note">
-            ระบบอัปเดตอัตโนมัติ (Dynamic Feed) | เบอร์แจ้งเตือน: 092-260-6330
+            ระบบทดสอบการอัปเดตหน้าเว็บ | เบอร์แจ้งเตือน: 092-260-6330
         </div>
     </div>
 
-    <!-- ส่วนจำลองระบบ Dynamic Auto-Refresh ที่จะดึงข้อมูลอัปเดตอัตโนมัติทุกครั้งที่เปิดหน้าเว็บ -->
     <script>
-        // ข้อมูลชุดล่าสุดที่จะถูกอัปเดตเข้าระบบอัตโนมัติ
         const latestData = {
-            date: "อัปเดตล่าสุดรอบ: 21 ตุลาคม 2026 (รอบถัดไปใน 2 สัปดาห์)",
-            signal1: "ยังไม่มีการปรับเปลี่ยนโครงสร้างบอร์ดบริหารระดับสูงชุดใหญ่ในรอบปักษ์นี้ แต่เริ่มมีการดึงที่ปรึกษาฝั่งโครงสร้างพื้นฐาน B2B เข้ามาเสริมทัพเบื้องหลังเพื่อเตรียมรับมือการทำตลาดสถาบัน",
-            signal2: "ยังไม่มีดีลประกาศความร่วมมือระดับสถาบันการเงินดั้งเดิม (TradFi) ขนาดใหญ่ในรอบนี้ โดยมุ่งเน้นการรักษาสภาพคล่องเดิมและปรับกลยุทธ์หลังการจัดระเบียบกระดานเทรดสากล",
-            signal3: "อยู่ในช่วงเตรียมความพร้อมภายในเพื่อปรับโมเดลธุรกิจมุ่งสู่การให้บริการ B2B เต็มตัว และจัดระเบียบสินทรัพย์เพื่อรองรับแผนกลยุทธ์ระยะยาว 1-2 ปีข้างหน้าตามเป้าหมายของกลุ่มทุนผู้สนับสนุน",
+            date: "ทดสอบเปลี่ยนข้อความ: วันที่ 21 ตุลาคม 2026 (ระบบรีเฟรชสมบูรณ์)",
+            signal1: "ทดสอบสัญญาณที่ 1: ระบบสามารถเปลี่ยนข้อความและสลับสีพื้นหลังเป็นธีมสีขาว (Light Mode) ได้อย่างสมบูรณ์แบบ",
+            signal2: "ทดสอบสัญญาณที่ 2: ยืนยันว่าการแก้ไขโค้ดบน GitHub จะสะท้อนผลมายังหน้าเว็บจริงทันทีหลังรีเฟรช",
+            signal3: "ทดสอบสัญญาณที่ 3: พร้อมใช้งานจริงสำหรับรอบอัปเดตถัดไปตามที่คุณต้องการ",
             references: [
-                "<strong>GitHub / On-Chain Metrics:</strong> ติดตามความเคลื่อนไหวของ Smart Contract และ Protocol Repository Audit Logs ประจำปักษ์",
-                "<strong>Institutional Tracking:</strong> วิเคราะห์จากจดหมายข่าวและรายงานโครงสร้างการลงทุนของกลุ่มผู้สนับสนุน (The Brooker Group / VC Partners)",
-                "<strong>Market Intelligence:</strong> ประเมินทิศทางอุตสาหกรรม DeFi และการปรับตัวสู่บริการ B2B ในรอบวัฏจักรปี 2026"
+                "<strong>Test Log:</strong> ยืนยันการทำงานของระบบ Dynamic Auto-Refresh เรียบร้อย",
+                "<strong>UI Status:</strong> เปลี่ยนจากโทนสีดำมืด เป็นโทนสีขาวสว่างสะอาดตา"
             ]
         };
 
-        // ฟังก์ชันสั่งรันและเติมข้อมูลเข้าหน้าเว็บทันทีที่เปิดหน้าจอ
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('proj-date').innerHTML = latestData.date;
             document.getElementById('sig-1').innerHTML = latestData.signal1;
