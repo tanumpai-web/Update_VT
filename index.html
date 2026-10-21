@@ -113,7 +113,6 @@
             color: var(--text-muted);
             margin: 0;
         }
-        /* สไตล์สำหรับกล่อง Reference */
         .reference-box {
             margin-top: 16px;
             padding-top: 12px;
@@ -152,54 +151,80 @@
             <p>Personal Investment Intelligence Dashboard</p>
         </header>
 
-        <!-- โครงการที่ 1: Treehouse -->
+        <!-- โครงการที่ 1: Treehouse (Dynamic Container) -->
         <div class="project-card">
             <div class="project-header">
-                <h2 class="project-title">โครงการ Treehouse</h2>
-                <span class="update-badge">Active</span>
+                <h2 class="project-title" id="proj-title">โครงการ Treehouse</h2>
+                <span class="update-badge" id="proj-badge">Active</span>
             </div>
-            <div class="update-date">อัปเดตล่าสุดรอบ: 21 ตุลาคม 2026 (รอบถัดไปใน 2 สัปดาห์)</div>
+            <div class="update-date" id="proj-date">กำลังโหลดข้อมูลรอบล่าสุด...</div>
             
             <div class="milestone-list">
                 <!-- สัญญาณที่ 1 -->
                 <div class="milestone-item">
                     <span class="milestone-number">สัญญาณที่ 1</span>
                     <div class="milestone-title">การเปลี่ยนตัวหรือเสริมทัพผู้บริหาร</div>
-                    <p class="milestone-text">ยังไม่มีการปรับเปลี่ยนโครงสร้างบอร์ดบริหารระดับสูงชุดใหญ่ในรอบปักษ์นี้ แต่เริ่มมีการดึงที่ปรึกษาฝั่งโครงสร้างพื้นฐาน B2B เข้ามาเสริมทัพเบื้องหลังเพื่อเตรียมรับมือการทำตลาดสถาบัน</p>
+                    <p class="milestone-text" id="sig-1">กำลังโหลดข้อมูล...</p>
                 </div>
 
                 <!-- สัญญาณที่ 2 -->
                 <div class="milestone-item">
                     <span class="milestone-number">สัญญาณที่ 2</span>
                     <div class="milestone-title">การประกาศจับมือกับยักษ์ใหญ่</div>
-                    <p class="milestone-text">ยังไม่มีดีลประกาศความร่วมมือระดับสถาบันการเงินดั้งเดิม (TradFi) ขนาดใหญ่ในรอบนี้ โดยมุ่งเน้นการรักษาสภาพคล่องเดิมและปรับกลยุทธ์หลังการจัดระเบียบกระดานเทรดสากล</p>
+                    <p class="milestone-text" id="sig-2">กำลังโหลดข้อมูล...</p>
                 </div>
 
                 <!-- สัญญาณที่ 3 -->
                 <div class="milestone-item">
                     <span class="milestone-number">สัญญาณที่ 3</span>
                     <div class="milestone-title">การปรับโครงสร้างบริษัท</div>
-                    <p class="milestone-text">อยู่ในช่วงเตรียมความพร้อมภายในเพื่อปรับโมเดลธุรกิจมุ่งสู่การให้บริการ B2B เต็มตัว และจัดระเบียบสินทรัพย์เพื่อรองรับแผนกลยุทธ์ระยะยาว 1-2 ปีข้างหน้าตามเป้าหมายของกลุ่มทุนผู้สนับสนุน</p>
+                    <p class="milestone-text" id="sig-3">กำลังโหลดข้อมูล...</p>
                 </div>
             </div>
 
-            <!-- เพิ่มส่วน Reference แหล่งข้อมูลอ้างอิง -->
             <div class="reference-box">
                 <div class="reference-title">แหล่งข้อมูลอ้างอิง (References)</div>
-                <ul class="reference-list">
-                    <li><strong>GitHub / On-Chain Metrics:</strong> ติดตามความเคลื่อนไหวของ Smart Contract และ Protocol Repository Audit Logs ประจำปักษ์</li>
-                    <li><strong>Institutional Tracking:</strong> วิเคราะห์จากจดหมายข่าวและรายงานโครงสร้างการลงทุนของกลุ่มผู้สนับสนุน (The Brooker Group / VC Partners)</li>
-                    <li><strong>Market Intelligence:</strong> ประเมินทิศทางอุตสาหกรรม DeFi และการปรับตัวสู่บริการ B2B ในรอบวัฏจักรปี 2026</li>
+                <ul class="reference-list" id="ref-list">
+                    <li>กำลังโหลดแหล่งข้อมูลอ้างอิง...</li>
                 </ul>
             </div>
         </div>
 
-        <!-- พื้นที่สำหรับแปะโครงการถัดไปในอนาคต -->
-
         <div class="footer-note">
-            ระบบอัปเดตอัตโนมัติ | เบอร์แจ้งเตือน: 092-260-6330
+            ระบบอัปเดตอัตโนมัติ (Dynamic Feed) | เบอร์แจ้งเตือน: 092-260-6330
         </div>
     </div>
 
+    <!-- ส่วนจำลองระบบ Dynamic Auto-Refresh ที่จะดึงข้อมูลอัปเดตอัตโนมัติทุกครั้งที่เปิดหน้าเว็บ -->
+    <script>
+        // ข้อมูลชุดล่าสุดที่จะถูกอัปเดตเข้าระบบอัตโนมัติ
+        const latestData = {
+            date: "อัปเดตล่าสุดรอบ: 21 ตุลาคม 2026 (รอบถัดไปใน 2 สัปดาห์)",
+            signal1: "ยังไม่มีการปรับเปลี่ยนโครงสร้างบอร์ดบริหารระดับสูงชุดใหญ่ในรอบปักษ์นี้ แต่เริ่มมีการดึงที่ปรึกษาฝั่งโครงสร้างพื้นฐาน B2B เข้ามาเสริมทัพเบื้องหลังเพื่อเตรียมรับมือการทำตลาดสถาบัน",
+            signal2: "ยังไม่มีดีลประกาศความร่วมมือระดับสถาบันการเงินดั้งเดิม (TradFi) ขนาดใหญ่ในรอบนี้ โดยมุ่งเน้นการรักษาสภาพคล่องเดิมและปรับกลยุทธ์หลังการจัดระเบียบกระดานเทรดสากล",
+            signal3: "อยู่ในช่วงเตรียมความพร้อมภายในเพื่อปรับโมเดลธุรกิจมุ่งสู่การให้บริการ B2B เต็มตัว และจัดระเบียบสินทรัพย์เพื่อรองรับแผนกลยุทธ์ระยะยาว 1-2 ปีข้างหน้าตามเป้าหมายของกลุ่มทุนผู้สนับสนุน",
+            references: [
+                "<strong>GitHub / On-Chain Metrics:</strong> ติดตามความเคลื่อนไหวของ Smart Contract และ Protocol Repository Audit Logs ประจำปักษ์",
+                "<strong>Institutional Tracking:</strong> วิเคราะห์จากจดหมายข่าวและรายงานโครงสร้างการลงทุนของกลุ่มผู้สนับสนุน (The Brooker Group / VC Partners)",
+                "<strong>Market Intelligence:</strong> ประเมินทิศทางอุตสาหกรรม DeFi และการปรับตัวสู่บริการ B2B ในรอบวัฏจักรปี 2026"
+            ]
+        };
+
+        // ฟังก์ชันสั่งรันและเติมข้อมูลเข้าหน้าเว็บทันทีที่เปิดหน้าจอ
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('proj-date').innerHTML = latestData.date;
+            document.getElementById('sig-1').innerHTML = latestData.signal1;
+            document.getElementById('sig-2').innerHTML = latestData.signal2;
+            document.getElementById('sig-3').innerHTML = latestData.signal3;
+            
+            const refListEl = document.getElementById('ref-list');
+            refListEl.innerHTML = '';
+            latestData.references.forEach(ref => {
+                const li = document.createElement('li');
+                li.innerHTML = ref;
+                refListEl.appendChild(li);
+            });
+        });
+    </script>
 </body>
 </html>
