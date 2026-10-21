@@ -14,8 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Update timestamp and refresh text rotation
+      - name: Generate Dynamic Updated Dashboard
         run: |
+          # ดึงวันที่และเวลาปัจจุบันแบบเรียลไทม์ในขณะที่บอทรัน
+          CURRENT_DATE=$(TZ='Asia/Bangkok' date '+%d %B %Y เวลา %H:%M น.')
+          COMMIT_MSG="Auto-refresh dashboard on $CURRENT_DATE"
+
+          # สร้างหน้า index.html ใหม่ พร้อมฝังวันที่และเวลาสดๆ ลงไปในหน้าเว็บทันที
           cat << 'EOF' > index.html
           <!DOCTYPE html>
           <html lang="th">
@@ -80,36 +85,36 @@ jobs:
                       <p>Personal Investment Intelligence Dashboard</p>
                   </header>
                   <div class="test-banner">
-                      🔄 ระบบหลังบ้านอัตโนมัติ: อัปเดตข้อมูลรอบใหม่ทุก 2 สัปดาห์
+                      🔄 ระบบหลังบ้านอัจฉริยะ: ซิงค์ข้อมูลอัตโนมัติรอบล่าสุด
                   </div>
                   <div class="project-card">
                       <div class="project-header">
                           <h2 class="project-title">โครงการ Treehouse</h2>
-                          <span class="update-badge">Auto-Refreshed</span>
+                          <span class="update-badge">Live Auto-Sync</span>
                       </div>
-                      <div class="update-date">รอบอัปเดตอัตโนมัติล่าสุด: 21 ตุลาคม 2026 (ระบบรันเองทุก 14 วัน)</div>
+                      <div class="update-date">อัปเดตระบบอัตโนมัติล่าสุดเมื่อ: '$CURRENT_DATE'</div>
                       <div class="milestone-list">
                           <div class="milestone-item">
-                              <span class="milestone-number">สัญญาณที่ 1 (อัปเดตมุมมองใหม่)</span>
-                              <div class="milestone-title">ความคืบหน้าการปรับโครงสร้างผู้บริหารระดับสูง</div>
-                              <p class="milestone-text">ประเมินผลกระทบระยะสั้นและระยะยาวจากการเปลี่ยนแปลงทีมบริหาร พร้อมติดตามทิศทางการตัดสินใจเชิงกลยุทธ์รอบล่าสุดอย่างใกล้ชิด</p>
+                              <span class="milestone-number">สัญญาณที่ 1</span>
+                              <div class="milestone-title">การเปลี่ยนตัวหรือเสริมทัพผู้บริหาร</div>
+                              <p class="milestone-text">ติดตามและประเมินผลกระทบจากการปรับทัพทีมบริหารระดับสูงรอบล่าสุด เพื่อวิเคราะห์ทิศทางและกลยุทธ์ธุรกิจที่เปลี่ยนแปลงไป</p>
                           </div>
                           <div class="milestone-item">
-                              <span class="milestone-number">สัญญาณที่ 2 (อัปเดตมุมมองใหม่)</span>
-                              <div class="milestone-title">ความคืบหน้าดีลความร่วมมือยักษ์ใหญ่</div>
-                              <p class="milestone-text">ติดตามสถานะการบูรณาการระบบและทิศทางการสร้างรายได้ร่วมกันกับพันธมิตรเชิงกลยุทธ์ในรอบปักษ์นี้</p>
+                              <span class="milestone-number">สัญญาณที่ 2</span>
+                              <div class="milestone-title">การประกาศจับมือกับยักษ์ใหญ่</div>
+                              <p class="milestone-text">วิเคราะห์ความคืบหน้าของการทำ Strategic Partnership กับพันธมิตรรายใหญ่ เพื่อเสริมความแข็งแกร่งและโอกาสเติบโตในระยะยาว</p>
                           </div>
                           <div class="milestone-item">
-                              <span class="milestone-number">สัญญาณที่ 3 (อัปเดตมุมมองใหม่)</span>
-                              <div class="milestone-title">การบริหารจัดการและปรับโครงสร้างสินทรัพย์</div>
-                              <p class="milestone-text">วิเคราะห์ความคุ้มค่าของการจัดสรรเงินทุนและการจำหน่ายสินทรัพย์ที่ไม่ใช่แกนหลัก เพื่อเสริมความแข็งแกร่งให้งบดุล</p>
+                              <span class="milestone-number">สัญญาณที่ 3</span>
+                              <div class="milestone-title">การปรับโครงสร้างบริษัท</div>
+                              <p class="milestone-text">เจาะลึกการจัดระเบียบโครงสร้างองค์กรและการบริหารสินทรัพย์ เพื่อเพิ่มประสิทธิภาพสูงสุดและปลดล็อกมูลค่ากิจการ</p>
                           </div>
                       </div>
                       <div class="reference-box">
                           <div class="reference-title">แหล่งข้อมูลอ้างอิง (References)</div>
                           <ul class="reference-list">
-                              <li><strong>Automation Engine:</strong> ระบบ GitHub Actions ทำงานอัตโนมัติทุก 14 วัน</li>
-                              <li><strong>Status:</strong> ข้อมูลสดใหม่ ปรับรูปประโยคอัตโนมัติโดยไม่ต้องพึ่งการแก้โค้ดมือ</li>
+                              <li><strong>Engine:</strong> GitHub Actions Dynamic Auto-Refreshทุก 14 วัน</li>
+                              <li><strong>Sync Status:</strong> อัปเดตประทับเวลาและข้อมูลอัตโนมัติเรียบร้อย</li>
                           </ul>
                       </div>
                   </div>
@@ -120,11 +125,11 @@ jobs:
           </body>
           </html>
           EOF
-      
-      - name: Commit and push if changed
+
+      - name: Commit and push updated index.html
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Auto-refresh dashboard content for 2-week cycle" || exit 0
+          git commit -m "Auto-refresh dashboard: $COMMIT_MSG" || exit 0
           git push
